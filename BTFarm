@@ -1,37 +1,33 @@
--------------------------------------------------------
-local Farm = 0
+
+
+-----------------{Dont Touch}-----------------------
 local Tws = game:GetService("TweenService")
-local Plr = game:GetService("Players").LocalPlayer
+local farm = 0
+---------------------------------------------------
+local function Respawn()
 
-Plr.Chatted:Connect(function(Command)
-	if Command == (EndFarmCommand) then
-		Farm = FarmEndTime
-	end
-end)
-
-
-
-local function respawn()
-	
-	if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
 		game:GetService("ReplicatedStorage").RemoteEvent:FireServer({"Respawn"})
-	end	
+	end
 end
-
-local function Tween()
+----------------------------------------
+local function Farm()
 	
-	Tws:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.2), {CFrame = CFrame.new(-274, 280, 990)}):Play()
+	if Area == "1B" then
+		
+		Tws:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.2), {CFrame = CFrame.new(-241, 287, 979)}):Play()
+	elseif Area == "100B" then
+		Tws:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.2), {CFrame = CFrame.new(-276, 281, 992)}):Play()
+	elseif Area == "10T" then
+		Tws:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.2), {CFrame = CFrame.new(-276, 280, 1008)}):Play()				
+	end
 end
-
-local function Time()
-	
-	Farm = Farm + 1
-	print(Farm)
-end
-
+------------------------------------------------------
 repeat
-	wait(1)
-	respawn()
-	Tween()
-	Time()
-until Farm >= FarmEndTime
+wait(1)
+farm = farm + 1
+print(farm)
+Farm()
+Respawn()
+until farm >= EndTime
+print("Your Farm Has Ended")
